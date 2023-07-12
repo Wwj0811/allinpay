@@ -1,0 +1,19 @@
+{
+  "name": "wangwenjie/allinpay",
+  "description": "通联支付",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "allinpay\\": "./"
+    }
+  },
+  "authors": [
+    {
+      "name": "王文杰",
+      "email": "1246814984@qq.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {}
+}
