@@ -58,4 +58,9 @@ class Refund extends AllinPay
         }
         return $res;
     }
+
+    public function Refunds($params)
+    {
+
+    }
 }
