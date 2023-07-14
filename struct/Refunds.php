@@ -1,7 +1,7 @@
 <?php
 namespace allinpay\struct;
 
-class Refund
+class Refunds
 {
     /**
      * 商户退款交易单号
@@ -27,7 +27,8 @@ class Refund
     public $oldtrxid = '';
 
     /**
-     * 备注
+     * 支付时间
+     * 根据支付时间判断走撤销还是退款
      */
-    public $remark;
+    public $paytime;
 }

@@ -14,5 +14,5 @@ class Query
      * reqsn和trxid必填其一
      * 建议:商户如果同时拥有trxid和reqsn,优先使用trxid
      */
-    public $trxid;
+    public $trxid = '';
 }
