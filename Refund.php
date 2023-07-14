@@ -56,9 +56,6 @@ class Refund extends AllinPay
         if(!AppUtil::validSign($res, $this->config["public_key"])){
             throw new PayException("签名验证错误");
         }
-        if($res["trxstatus"] != '0000') {
-            throw new PayException("退款失败：".$res['retmsg']);
-        }
         return $res;
     }
 }

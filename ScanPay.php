@@ -62,10 +62,6 @@ class ScanPay extends AllinPay
         if(!AppUtil::validSign($res, $this->config["public_key"])){
             throw new PayException("签名验证错误");
         }
-        // 交易成功
-        if($res["trxstatus"] != '0000') {
-            throw new PayException("交易失败：".$res['retmsg']);
-        }
         return $res;
     }
 }
