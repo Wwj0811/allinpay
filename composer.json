@@ -15,5 +15,9 @@
     }
   ],
   "minimum-stability": "dev",
-  "require": {}
+  "require": {
+    "ext-curl": "*",
+    "ext-json": "*",
+    "ext-openssl": "*"
+  }
 }

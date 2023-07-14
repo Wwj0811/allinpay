@@ -20,7 +20,9 @@ class AllinPay
         // 支付有效期，单位：分
         'validtime' => '5',
         // RSA私钥
-        'private_key' => ''
+        'private_key' => '',
+        // RSA公钥
+        'public_key' => ''
     );
 
     public function __construct($config = [])
