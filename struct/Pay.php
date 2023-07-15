@@ -41,4 +41,10 @@ class Pay
      * @var string
      */
     public $remark = '';
+
+    /**
+     * 订单有效时间，以分为单位
+     * @var int
+     */
+    public $validtime = 5;
 }
