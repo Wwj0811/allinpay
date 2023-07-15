@@ -1,60 +1,50 @@
 <?php
+namespace allinpay\struct;
 
-namespace allinpay;
-
-
-use allinpay\base\AppUtil;
-use allinpay\base\PayException;
-
-class Pay extends AllinPay
+class Pay
 {
-    public function __construct($config = [])
-    {
-        parent::__construct($config);
-        $this->config['apiurl'] .= 'unitorder/pay';
-    }
+    /**
+     * 交易金额，单位分
+     */
+    public $trxamt;
 
     /**
-     * 微信jsapi支付
-     * @param struct\WechatJsapiPay $params
-     * @throws PayException
+     * 商户交易单号
+     * @var string
      */
-    public function WechatJsapiPay($params)
-    {
-        // 金额
-        if(empty($params->trxamt) || $params->trxamt <= 0) {
-            throw new PayException("交易金额有误");
-        }
-        // 订单号
-        if(empty($params->reqsn)) {
-            throw new PayException("订单号有误");
-        }else{
-            if(strlen($params->reqsn) > 32) {
-                throw new PayException("订单号长度有误");
-            }
-        }
+    public $reqsn;
 
-        $data = [
-            'trxamt' => $params->trxamt,
-            'reqsn' => $params->reqsn,
-            'paytype' => $params->paytype,
-            'body' => $params->body,
-            'remark' => $params->remark,
-            'acct' => $params->acct,
-            'limit_pay' => $this->config['limit_pay'],
-            'notify_url' => $params->notify_url,
-        ];
-        $res = $this->request($data);
+    /**
+     * 交易方式
+     * W01	微信扫码支付
+     * W02	微信JS支付
+     * W06	微信小程序支付
+     * A01	支付宝扫码支付
+     * A02	支付宝JS支付
+     * A03	支付宝APP支付
+     * U01	银联扫码支付(CSB)
+     * U02	银联JS支付
+     * S01	数币扫码支付
+     * 03	数字货币H5
+     * @var string
+     */
+    public $paytype;
 
-        // 下单接口请求失败
-        if($res["retcode"] == "FAIL") {
-            // 下单失败记录
-            throw new PayException("下单失败：".$res["retmsg"]);
-        }
-        // 验证签名
-        if(!AppUtil::validSign($res, $this->config["public_key"])){
-            throw new PayException("签名验证错误");
-        }
-        return $res;
-    }
+    /**
+     * 订单标题
+     * @var string
+     */
+    public $body = '';
+
+    /**
+     * 备注
+     * @var string
+     */
+    public $remark = '';
+
+    /**
+     * 订单有效时间，以分为单位
+     * @var int
+     */
+    public $validtime = 5;
 }
