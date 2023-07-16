@@ -12,6 +12,7 @@ class Query extends AllinPay
     {
         parent::__construct($config);
         $this->config['apiurl'] .= 'tranx/query';
+        $this->config['log_path'] .= 'query';
     }
 
     /**

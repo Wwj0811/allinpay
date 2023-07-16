@@ -12,6 +12,7 @@ class Refund extends AllinPay
     {
         parent::__construct($config);
         $this->config['apiurl'] .= 'tranx/refund';
+        $this->config['log_path'] .= 'refund';
     }
 
     /**

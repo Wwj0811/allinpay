@@ -12,6 +12,7 @@ class Cancel extends AllinPay
     {
         parent::__construct($config);
         $this->config['apiurl'] .= 'tranx/cancel';
+        $this->config['log_path'] .= 'cancel';
     }
 
     /**

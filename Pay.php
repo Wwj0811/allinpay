@@ -13,6 +13,7 @@ class Pay extends AllinPay
     {
         parent::__construct($config);
         $this->config['apiurl'] .= 'unitorder/pay';
+        $this->config['log_path'] .= 'pay';
     }
 
     /**

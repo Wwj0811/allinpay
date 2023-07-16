@@ -13,6 +13,7 @@ class ScanPay extends AllinPay
     {
         parent::__construct($config);
         $this->config['apiurl'] .= 'unitorder/scanqrpay';
+        $this->config['log_path'] .= 'scanpay';
     }
 
     /**
