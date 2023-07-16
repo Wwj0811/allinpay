@@ -45,7 +45,6 @@ class AppUtil{
         unset($array['sign']);
         ksort($array);
         $bufSignSrc = AppUtil::ToUrlParams($array);
-        $public_key='MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCm9OV6zH5DYH/ZnAVYHscEELdCNfNTHGuBv1nYYEY9FrOzE0/4kLl9f7Y9dkWHlc2ocDwbrFSm0Vqz0q2rJPxXUYBCQl5yW3jzuKSXif7q1yOwkFVtJXvuhf5WRy+1X5FOFoMvS7538No0RpnLzmNi3ktmiqmhpcY/1pmt20FHQQIDAQAB';
         $public_key = chunk_split($public_key , 64, "\n");
         $key = "-----BEGIN PUBLIC KEY-----\n$public_key-----END PUBLIC KEY-----\n";
         $result= openssl_verify($bufSignSrc,base64_decode($sign), $key );
