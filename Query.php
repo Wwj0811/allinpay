@@ -3,6 +3,7 @@
 namespace allinpay;
 
 use allinpay\base\AppUtil;
+use allinpay\base\Log;
 use allinpay\base\PayException;
 
 class Query extends AllinPay
@@ -24,28 +25,33 @@ class Query extends AllinPay
      */
     public function Query($params)
     {
-        // 订单号
-        if(empty($params->reqsn)) {
-            throw new PayException("订单号有误");
-        }else{
-            if(strlen($params->reqsn) > 32) {
-                throw new PayException("订单号长度有误");
+        try {
+            // 订单号
+            if(empty($params->reqsn)) {
+                throw new PayException("订单号有误");
+            }else{
+                if(strlen($params->reqsn) > 32) {
+                    throw new PayException("订单号长度有误");
+                }
             }
-        }
 
-        $data = [
-            'reqsn' => $params->reqsn,
-        ];
-        $res = $this->request($data);
+            $data = [
+                'reqsn' => $params->reqsn,
+            ];
+            $res = $this->request($data);
 
-        // 接口请求失败
-        if($res["retcode"] == "FAIL") {
-            throw new PayException("查询失败：".$res["retmsg"]);
+            // 接口请求失败
+            if($res["retcode"] == "FAIL") {
+                throw new PayException("查询失败：".$res["retmsg"]);
+            }
+            // 验证签名
+            if(!AppUtil::validSign($res, $this->config["public_key"])){
+                throw new PayException("签名验证错误");
+            }
+            return $res;
+        }catch (\Exception $e){
+            Log::Write($this->config['log_path'].'/'.date('Y-m-d').'.log', $e->getMessage(), '异常');
+            throw new PayException($e->getMessage());
         }
-        // 验证签名
-        if(!AppUtil::validSign($res, $this->config["public_key"])){
-            throw new PayException("签名验证错误");
-        }
-        return $res;
     }
 }

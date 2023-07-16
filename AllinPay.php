@@ -4,6 +4,7 @@ namespace allinpay;
 
 
 use allinpay\base\AppUtil;
+use allinpay\base\Log;
 use allinpay\base\PayException;
 
 class AllinPay
@@ -22,7 +23,9 @@ class AllinPay
         // RSA私钥
         'private_key' => '',
         // RSA公钥
-        'public_key' => ''
+        'public_key' => '',
+        // 日志目录
+        'log_path' => '',
     );
 
     public function __construct($config = [])
@@ -54,6 +57,7 @@ class AllinPay
         $data['signtype'] = $this->config['signtype'];
         $data['sign'] = urlencode(AppUtil::Sign($data, $this->config['private_key']));
         $dataStr = AppUtil::ToUrlParams($data);
+        Log::Write($this->config['log_path'].'/'.date('Y-m-d').'.log', $data, '请求参数');
         $res = $this->CurlPost($this->config['apiurl'], $dataStr, true);
         return $res;
     }

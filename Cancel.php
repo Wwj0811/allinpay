@@ -3,6 +3,7 @@
 namespace allinpay;
 
 use allinpay\base\AppUtil;
+use allinpay\base\Log;
 use allinpay\base\PayException;
 
 class Cancel extends AllinPay
@@ -20,39 +21,44 @@ class Cancel extends AllinPay
      */
     public function Cancel($params)
     {
-        // 订单号
-        if(empty($params->reqsn)) {
-            throw new PayException("订单号有误");
-        }else{
-            if(strlen($params->reqsn) > 32) {
-                throw new PayException("订单号长度有误");
+        try {
+            // 订单号
+            if(empty($params->reqsn)) {
+                throw new PayException("订单号有误");
+            }else{
+                if(strlen($params->reqsn) > 32) {
+                    throw new PayException("订单号长度有误");
+                }
             }
-        }
 
-        if(empty($params->oldreqsn)) {
-            throw new PayException("原始订单号有误");
-        }else{
-            if(strlen($params->oldreqsn) > 32) {
-                throw new PayException("原始订单号长度有误");
+            if(empty($params->oldreqsn)) {
+                throw new PayException("原始订单号有误");
+            }else{
+                if(strlen($params->oldreqsn) > 32) {
+                    throw new PayException("原始订单号长度有误");
+                }
             }
-        }
 
-        $data = [
-            'trxamt' => $params->trxamt,
-            'reqsn' => $params->reqsn,
-            'oldreqsn' => $params->oldreqsn,
-        ];
-        $res = $this->request($data);
+            $data = [
+                'trxamt' => $params->trxamt,
+                'reqsn' => $params->reqsn,
+                'oldreqsn' => $params->oldreqsn,
+            ];
+            $res = $this->request($data);
 
-        // 下单接口请求失败
-        if($res["retcode"] == "FAIL") {
-            // 下单失败记录
-            throw new PayException("撤销失败：".$res["retmsg"]);
+            // 下单接口请求失败
+            if($res["retcode"] == "FAIL") {
+                // 下单失败记录
+                throw new PayException("撤销失败：".$res["retmsg"]);
+            }
+            // 验证签名
+            if(!AppUtil::validSign($res, $this->config["public_key"])){
+                throw new PayException("签名验证错误");
+            }
+            return $res;
+        }catch (\Exception $e){
+            Log::Write($this->config['log_path'].'/'.date('Y-m-d').'.log', $e->getMessage(), '异常');
+            throw new PayException($e->getMessage());
         }
-        // 验证签名
-        if(!AppUtil::validSign($res, $this->config["public_key"])){
-            throw new PayException("签名验证错误");
-        }
-        return $res;
     }
 }
