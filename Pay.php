@@ -46,6 +46,7 @@ class Pay extends AllinPay
                 'acct' => $params->acct,
                 'limit_pay' => $this->config['limit_pay'],
                 'notify_url' => $params->notify_url,
+                'front_url' => $params->front_url,
                 'validtime' => $params->validtime,
             ];
             $res = $this->request($data);

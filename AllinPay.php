@@ -59,6 +59,7 @@ class AllinPay
         $dataStr = AppUtil::ToUrlParams($data);
         Log::Write($this->config['log_path'].'/'.date('Y-m-d').'.log', $data, '请求参数');
         $res = $this->CurlPost($this->config['apiurl'], $dataStr, true);
+        Log::Write($this->config['log_path'].'/'.date('Y-m-d').'.log', $res, '返回结果');
         return $res;
     }
 
