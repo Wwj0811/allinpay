@@ -16,6 +16,12 @@ class WechatJsapiPay extends Pay
     public $notify_url = '';
 
     /**
+     * 支付完成跳转地址
+     * @var string
+     */
+    public $front_url = '';
+
+    /**
      * 微信子appid
      * @var string
      */

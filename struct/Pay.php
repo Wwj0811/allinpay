@@ -43,7 +43,7 @@ class Pay
     public $remark = '';
 
     /**
-     * 订单有效时间，以分为单位
+     * 订单有效时间，以分为单位，最大1440分钟
      * @var int
      */
     public $validtime = 5;
