@@ -48,6 +48,7 @@ class Pay extends AllinPay
                 'notify_url' => $params->notify_url,
                 'front_url' => $params->front_url,
                 'validtime' => $params->validtime,
+                'sub_appid' => $params->sub_appid,
             ];
             $res = $this->request($data);
 
