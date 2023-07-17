@@ -38,4 +38,10 @@ class ScanPay
      * @var string
      */
     public $notify_url = '';
+
+    /**
+     * 微信子appid
+     * @var string
+     */
+    public $sub_appid = '';
 }
