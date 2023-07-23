@@ -29,5 +29,5 @@ class Refund
     /**
      * 备注
      */
-    public $remark;
+    public $remark = '';
 }

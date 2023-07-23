@@ -31,4 +31,9 @@ class Refunds
      * 根据支付时间判断走撤销还是退款
      */
     public $paytime;
+
+    /**
+     * 备注
+     */
+    public $remark = '';
 }
