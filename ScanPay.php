@@ -53,7 +53,8 @@ class ScanPay extends AllinPay
                 'authcode' => $params->authcode,
                 'limit_pay' => $this->config['limit_pay'],
                 'notify_url' => $params->notify_url,
-                 'sub_appid' => $params->sub_appid,
+                'sub_appid' => $params->sub_appid,
+                'terminfo' => $params->terminfo
             ];
             $res = $this->request($data);
 
