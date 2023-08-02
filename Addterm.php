@@ -13,7 +13,7 @@ class Addterm extends AllinPay
     {
         parent::__construct($config);
         $this->config['apiurl'] .= 'cusapi/merchantapi/addterm';
-        $this->config['log_path'] .= 'scanpay';
+        $this->config['log_path'] .= 'addterm';
     }
 
     /**
