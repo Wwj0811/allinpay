@@ -44,4 +44,9 @@ class ScanPay
      * @var string
      */
     public $sub_appid = '';
+
+    /**
+     * 终端信息
+     */
+    public $terminfo = '';
 }
