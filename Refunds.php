@@ -40,11 +40,11 @@ class Refunds extends AllinPay
                     throw new PayException("原始订单号长度有误");
                 }
             }
-            if(substr($params->paytime,0, 10) == date('Y-m-d')){
-                return (new Cancel($this->config))->Cancel($params);
-            }else{
+//            if(substr($params->paytime,0, 10) == date('Y-m-d')){
+//                return (new Cancel($this->config))->Cancel($params);
+//            }else{
                 return (new Refund($this->config))->Refund($params);
-            }
+//            }
         }catch(\Exception $e){
             Log::Write($this->config['log_path'].'/'.date('Y-m-d').'.log', $e->getMessage(), '异常');
             throw new PayException($e->getMessage());
